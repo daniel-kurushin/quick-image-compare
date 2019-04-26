@@ -29,15 +29,15 @@ if __name__ == '__main__':
     for img1 in test:
         for img2 in test:
             x = compare(img1, img2)
-            print("%s <=> %s (%s) %s" % (img1, img2, round(x,2), "да" if x < 0.02 else "похожи" if x < 0.4 else "нет"))
+            print("%s <=> %s (%s) %s" % (img1, img2, round(x,2), "да" if x < 0.021 else "похожи" if x < 0.4 else "нет"))
     test = [ 'test/a%s.png' % i for i in range(1,9) ]
     for img1 in test:
         for img2 in test:
             x = compare(img1, img2)
-            print("%s <=> %s (%s) %s" % (img1, img2, round(x,2), "да" if x < 0.02 else "похожи" if x < 0.4 else "нет"))
+            print("%s <=> %s (%s) %s" % (img1, img2, round(x,2), "да" if x < 0.021 else "похожи" if x < 0.4 else "нет"))
     test = [ 'test/b%s.png' % i for i in range(1,12) ]
     for img1 in test:
         for img2 in test:
             x = compare(img1, img2)
-            print("%s <=> %s (%s) %s" % (img1, img2, round(x,2), "да" if x < 0.02 else "похожи" if x < 0.4 else "нет"))
+            print("%s <=> %s (%s) %s" % (img1, img2, round(x,2), "да" if x < 0.021 else "похожи" if x < 0.4 else "нет"))
     
