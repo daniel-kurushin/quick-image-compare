@@ -8,7 +8,7 @@ from PIL import Image, ImageOps
 from copy import deepcopy
 import numpy as np
 
-SIZE = 8
+SIZE = 16
 e = 2.78
 W = np.zeros((SIZE,SIZE))
 a = 0.5
