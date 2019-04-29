@@ -59,7 +59,7 @@ def train():
                 print(img1, img2, y, r)
                 i += 1
         plot(W)
-        print("sum = " % sum(Δ))
+        print("sum = %s" % sum(Δ))
 
 
 def update_w(img1, img2, y):
