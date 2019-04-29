@@ -23,7 +23,7 @@ def plot(w):
     for x in range(SIZE * 20):
         for y in range(SIZE * 20):
             ww[x,y] = w[x//20,y//20]
-    plt.imshow(ww)
+    plt.imshow(ww, 'gray')#, vmin = -100, vmax = 100)
     plt.savefig("%s" % epoc)
     epoc += 1
 
@@ -46,7 +46,11 @@ def train():
     images = [ join('test', f) for f in listdir('test') if isfile(join('test', f))]
 
     Δ = [1] * len(images) * len(images)
-    while sum(Δ) > 3:
+    ΣΔ = 100
+    n = 0
+    while sum(Δ) - ΣΔ < 0 or n < 10:
+        ΣΔ = sum(Δ)
+        n += 1
         i = 0
         for img1 in images:
             class1 = img1.split('.')[0]
@@ -59,7 +63,7 @@ def train():
                 print(img1, img2, y, r)
                 i += 1
         plot(W)
-        print("sum = %s" % sum(Δ))
+        print("sum = %s" % sum(Δ), flush = 1)
 
 
 def update_w(img1, img2, y):
@@ -89,7 +93,7 @@ def compare(img1, img2):
             v = δ(img1, img2, x, y)
             D += [v * W[x,y]]
 #    print(D)
-    return σ(sum(D)**1/2)-1/2
+    return sum(D)**1/2
 
 
 def test():
