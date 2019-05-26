@@ -13,8 +13,6 @@ def σ(x):
     return 1 / (1 + e**(-x))
 
 def compare(img1, img2):
-    img1 = ImageOps.grayscale(Image.open(img1).resize(size = (SIZE,SIZE), resample = Image.HAMMING))
-    img2 = ImageOps.grayscale(Image.open(img2).resize(size = (SIZE,SIZE), resample = Image.HAMMING))
     D = []
     for x in range(SIZE):
         for y in range(SIZE):
@@ -25,19 +23,16 @@ def compare(img1, img2):
     return sum(D)**1/2
 
 if __name__ == '__main__':
-    test = ['test/img1.png', 'test/img2.png',  'test/img3.png', 'test/sigma1.png', 'test/sigma2.png']
-    for img1 in test:
-        for img2 in test:
-            x = compare(img1, img2)
-            print("%s <=> %s (%s) %s" % (img1, img2, round(x,2), "да" if x < 0.07 else "похожи" if x < 0.7 else "нет"))
-    test = [ 'test/a%s.png' % i for i in range(1,9) ]
-    for img1 in test:
-        for img2 in test:
-            x = compare(img1, img2)
-            print("%s <=> %s (%s) %s" % (img1, img2, round(x,2), "да" if x < 0.07 else "похожи" if x < 0.7 else "нет"))
-    test = [ 'test/b%s.png' % i for i in range(1,12) ]
-    for img1 in test:
-        for img2 in test:
-            x = compare(img1, img2)
-            print("%s <=> %s (%s) %s" % (img1, img2, round(x,2), "да" if x < 0.07 else "похожи" if x < 0.7 else "нет"))
-    
+    try:
+        import sys
+        assert sys.argv[1] and sys.argv[2]
+        img1, img2 = sys.argv[1], sys.argv[2]
+        i1 = ImageOps.grayscale(Image.open(img1).resize(size = (SIZE,SIZE), resample = Image.HAMMING))
+        i2 = ImageOps.grayscale(Image.open(img2).resize(size = (SIZE,SIZE), resample = Image.HAMMING))
+        x = compare(i1, i2)
+        print("%s <=> %s (%s) %s" % (img1, img2, round(x,2), "да" if x < 0.07 else "похожи" if x < 0.7 else "нет"))
+    except AssertionError:
+        print("Usage")
+    except FileNotFoundError:
+        print("FileNotFound", file=sys.stderr)
+        exit(2)
