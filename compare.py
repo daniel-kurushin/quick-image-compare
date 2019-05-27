@@ -8,6 +8,10 @@ from PIL import Image, ImageOps
 
 SIZE = 16 
 e = 2.78
+MIN = 0.12
+
+class NotAnImage(ValueError):
+    pass
 
 def σ(x):
     return 1 / (1 + e**(-x))
@@ -22,13 +26,19 @@ def compare(img1, img2):
 #    print(D)
     return sum(D)**1/2
 
+def getthumb(filename):
+    try:
+        return ImageOps.grayscale(Image.open(filename).resize(size = (SIZE,SIZE), resample = Image.HAMMING))
+    except OSError:
+         raise NotAnImage()
+
 if __name__ == '__main__':
     try:
         import sys
-        assert sys.argv[1] and sys.argv[2]
+        assert len(sys.argv) > 2
         img1, img2 = sys.argv[1], sys.argv[2]
-        i1 = ImageOps.grayscale(Image.open(img1).resize(size = (SIZE,SIZE), resample = Image.HAMMING))
-        i2 = ImageOps.grayscale(Image.open(img2).resize(size = (SIZE,SIZE), resample = Image.HAMMING))
+        i1 = getthumb(img1)
+        i2 = getthumb(img2)
         x = compare(i1, i2)
         print("%s <=> %s (%s) %s" % (img1, img2, round(x,2), "да" if x < 0.07 else "похожи" if x < 0.7 else "нет"))
     except AssertionError:
