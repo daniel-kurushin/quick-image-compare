@@ -3,16 +3,16 @@
 The idea of this tool is to demonstrate very simple image comparison method,
 with rather good performance.
 
-[compare.py]
+## compare.py
 
 Image comparison and thumbnailin
 
-[dedublicate.py]
+## dedublicate.py
 
 To find dublicates and move 'em to /tmp/ folder.
 Tolerance is added to the file name to debug.
 
-[Usage]
+## Usage
 
 $ dedublicate /path/
 
