@@ -1,0 +1,2 @@
+compare==0.2b0
+Pillow==9.2.0
